@@ -1,0 +1,46 @@
+﻿@model Damag.Models.Item
+
+@{
+    ViewBag.Title = "New item";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Items"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.Approved)
+
+    @Html.Label("Name", "Name")
+    <br />
+    @Html.TextBox("Name", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Price", "Price")
+    <br />
+    @Html.TextBox("Price", null, new { @class = "form-control", @type = "number" })
+    @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Description", "Description")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <label>Choose category</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"),
+        "Category", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Add</button>
+}
+

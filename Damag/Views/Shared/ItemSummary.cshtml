@@ -1,0 +1,31 @@
+﻿@model Damag.Models.Item
+
+<div class="panel @(Model.Approved ? "panel-default" : "panel-danger")">
+    <div class="panel-heading">@Model.Name ($@Model.Price)</div>
+    <div class="panel-footer">
+        <a class="btn btn-sm btn-info" href="/Items/Show/@Model.Id">Details</a>
+
+        @if (User.IsInRole("Administrator") || (User.IsInRole("Collaborator") && Model.UserId == ViewBag.UserId))
+        {
+            <a class="btn btn-sm btn-info" href="/Items/Edit/@Model.Id">Edit</a>
+        }
+        @if (User.IsInRole("Administrator") && !Model.Approved)
+        {
+            using (Html.BeginForm(actionName: "Approve", controllerName: "Items", routeValues: new { id = @Model.Id }, method: FormMethod.Post, htmlAttributes: new { @style = "display: inline" }))
+            {
+                <button class="btn btn-sm btn-success" type="submit">Approve</button>
+            }
+            using (Html.BeginForm(actionName: "Reject", controllerName: "Items", routeValues: new { id = @Model.Id }, method: FormMethod.Post, htmlAttributes: new { @style = "display: inline" }))
+            {
+                <button class="btn btn-sm btn-danger" type="submit">Reject</button>
+            }
+        }
+        @if ((User.IsInRole("Collaborator") && Model.UserId == ViewBag.UserId) || (User.IsInRole("Administrator") && Model.Approved))
+        {
+            using (Html.BeginForm(actionName: "Reject", controllerName: "Items", routeValues: new { id = @Model.Id }, method: FormMethod.Post, htmlAttributes: new { @style = "display: inline" }))
+            {
+                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+            }
+        }
+    </div>
+</div>

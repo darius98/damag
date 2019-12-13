@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "My items";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (TempData.ContainsKey("message"))
+{
+    <p class="alert alert-info" role="alert">@ViewBag.message</p>
+}
+
+<a class="btn btn-success" style="margin-bottom: 40px;" href="/Items/New">Add item</a>
+
+@foreach (Damag.Models.Item item in ViewBag.Items)
+{
+    @Html.Partial("ItemSummary", item)
+}

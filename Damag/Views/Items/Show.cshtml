@@ -1,0 +1,28 @@
+﻿@model Damag.Models.Item
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<a class="btn btn-info" style="margin-top: 40px;" href="/Items">Back</a>
+
+@if (!Model.Approved && User.IsInRole("Administrator"))
+{
+    using (Html.BeginForm(actionName: "Approve", controllerName: "Items", routeValues: new { id = @Model.Id }))
+    {
+        <button class="btn btn-xs btn-success" type="submit">Approve</button>
+    }
+    using (Html.BeginForm(actionName: "Reject", controllerName: "Items", routeValues: new { id = @Model.Id }))
+    {
+        <button class="btn btn-xs btn-danger" type="submit">Reject</button>
+    }
+}
+
+<div class="panel panel-default" style="margin-top: 20px;">
+    <div class="panel-heading">@Model.Name</div>
+    <div class="panel-body">
+        <p>Category: @Model.Category.CategoryName</p>
+        <p>Price: $@Model.Price</p>
+        <p>@Model.Description</p>
+    </div>
+</div>

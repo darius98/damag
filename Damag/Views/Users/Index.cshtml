@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+
+<style>
+    .users-table {
+        margin-top: 56px;
+        border-spacing: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+        font-weight: 400;
+        color: rgba(0,0,0,.87);
+    }
+
+    .users-table-thead tr {
+        height: 56px;
+    }
+
+    .users-table-thead th {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(0,0,0,.54);
+        border-bottom-color: rgba(0,0,0,.12);
+        text-align: left;
+        padding: 0;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding-left: 24px;
+    }
+
+    .users-table-row {
+        height: 48px;
+    }
+
+    .users-table-cell {
+        font-size: 14px;
+        color: rgba(0,0,0,.87);
+        border-bottom-color: rgba(0,0,0,.12);
+        padding: 0;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding-left: 24px;
+    }
+</style>
+<table class="users-table">
+    <thead class="users-table-thead">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in ViewBag.UsersList)
+        {
+            <tr class="users-table-row">
+                <td class="users-table-cell">@user.UserName</td>
+                <td class="users-table-cell">@user.Email</td>
+                <td class="users-table-cell">@ViewBag.UserRoles[user.Id]</td>
+                <td class="users-table-cell"><a class="btn btn-sm btn-info" href="/Users/Edit/@user.Id">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

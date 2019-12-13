@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Items pending approval";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (TempData.ContainsKey("message"))
+{
+    <p class="alert alert-info" role="alert">@ViewBag.message</p>
+}
+
+@{ 
+    ViewBag.NoItemsPendingApproval = true;
+}
+
+@foreach (Damag.Models.Item item in ViewBag.Items)
+{
+    ViewBag.NoItemsPendingApproval = false;
+    @Html.Partial("ItemSummary", item)
+}
+
+@if (ViewBag.NoItemsPendingApproval)
+{
+    <p>No items pending approval.</p>
+}

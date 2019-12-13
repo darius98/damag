@@ -1,0 +1,50 @@
+﻿@model Damag.Models.Item
+
+@{
+    ViewBag.Title = "Edit item";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Items"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.Approved)
+
+    @Html.Label("Name", "Name")
+    <br />
+    @Html.Editor("Name", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Price", "Price")
+    <br />
+    @Html.Editor("Price", new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+    @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Description", "Description")
+    <br />
+    @Html.Editor("Description", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <br />
+
+    <label>Select category</label>
+    @Html.DropDownListFor(m => m.CategoryId,
+        new SelectList(Model.Categories, "Value", "Text"),
+        "Category", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Save</button>
+}
+
