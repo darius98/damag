@@ -171,23 +171,30 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912011319269_InitialCreate.cs" />
+    <Compile Include="Migrations\201912011319269_InitialCreate.Designer.cs">
+      <DependentUpon>201912011319269_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912131101089_Something.cs" />
+    <Compile Include="Migrations\201912131101089_Something.Designer.cs">
+      <DependentUpon>201912131101089_Something.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DamagDb.mdf" />
-    <Content Include="App_Data\DamagDb_log.ldf">
-      <DependentUpon>DamagDb.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -252,8 +259,11 @@
     <Content Include="Views\Items\Mine.cshtml" />
     <Content Include="Views\Shared\ItemSummary.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Review\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -266,6 +276,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201912011319269_InitialCreate.resx">
+      <DependentUpon>201912011319269_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912131101089_Something.resx">
+      <DependentUpon>201912131101089_Something.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

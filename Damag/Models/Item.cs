@@ -26,5 +26,7 @@ namespace Damag.Models
         public IEnumerable<SelectListItem> Categories { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public string CurrentUserId;
     }
 }

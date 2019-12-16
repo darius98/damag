@@ -6,6 +6,16 @@
 
 <a class="btn btn-info" style="margin-top: 40px;" href="/Items">Back</a>
 
+@if (TempData.ContainsKey("message"))
+{
+    <p class="alert alert-info" role="alert" style="margin-top: 20px;">@ViewBag.message</p>
+}
+
+@if (TempData.ContainsKey("error"))
+{
+    <p class="alert alert-error" role="alert" style="margin-top: 20px;">@ViewBag.error</p>
+}
+
 @if (!Model.Approved && User.IsInRole("Administrator"))
 {
     using (Html.BeginForm(actionName: "Approve", controllerName: "Items", routeValues: new { id = @Model.Id }))
@@ -26,3 +36,66 @@
         <p>@Model.Description</p>
     </div>
 </div>
+
+<h4>Reviews</h4>
+
+@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm(actionName: "New", controllerName: "Review"))
+    {
+        @Html.Hidden("UserId", Model.CurrentUserId)
+        @Html.Hidden("ItemId", Model.Id)
+        @Html.Hidden("Date", DateTime.Now)
+
+        <div class="radio-inline">
+            <label>@Html.RadioButton("Rating", 1, new { @name = "optradio" }) 1</label>
+        </div>
+        <div class="radio-inline">
+            <label>@Html.RadioButton("Rating", 2, new { @name = "optradio" }) 2</label>
+        </div>
+        <div class="radio-inline">
+            <label>@Html.RadioButton("Rating", 3, new { @name = "optradio" }) 3</label>
+        </div>
+        <div class="radio-inline">
+            <label>@Html.RadioButton("Rating", 4, new { @name = "optradio" }) 4</label>
+        </div>
+        <div class="radio-inline">
+            <label>@Html.RadioButton("Rating", 5, new { @name = "optradio", @checked = true }) 5</label>
+        </div>
+        <button class="btn btn-xs btn-info" type="submit" style="margin-bottom: 4px; margin-left: 8px;">Submit</button>
+        @Html.TextArea("Text", null, new { @class = "form-control", @placeholder = "Leave a review!" })
+    }
+} else
+{
+    <p><em>You need to log-in to post a review.</em></p>
+}
+
+@foreach (var review in ViewBag.Reviews)
+{
+    <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading">
+            @review.User.UserName - @review.Rating / 5
+
+            @if (User.IsInRole("Administrator"))
+            {
+            <div style="float: right">
+                @using (Html.BeginForm(actionName: "Edit", controllerName: "Review", routeValues: new { id = review.Id }, method: FormMethod.Post, htmlAttributes: new { @style = "display: inline" }))
+                {
+                    <button class="btn btn-xs btn-info" type="submit">Edit</button>
+                }
+
+                @using (Html.BeginForm(actionName: "Delete", controllerName: "Review", routeValues: new { id = review.Id }, method: FormMethod.Post, htmlAttributes: new { @style = "display: inline" }))
+                {
+                    <button class="btn btn-xs btn-danger" type="submit">Remove</button>
+                }
+            </div>
+            }
+        </div>
+        @if (!String.IsNullOrEmpty(review.Text))
+        {
+            <div class="panel-body">
+                <p>@review.Text</p>
+            </div>
+        }
+    </div>
+}

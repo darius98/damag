@@ -85,7 +85,19 @@ namespace Damag.Controllers
 
         public ActionResult Show(int id)
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+            if (TempData.ContainsKey("error"))
+            {
+                ViewBag.error = TempData["error"].ToString();
+            }
+
             Item item = db.Items.Find(id);
+
+            ViewBag.Reviews = db.Reviews.Where(r => r.ItemId == id).OrderByDescending(r => r.Date).ToList();
+            item.CurrentUserId = User.Identity.GetUserId();
 
             return View(item);
         }
